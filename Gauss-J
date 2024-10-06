@@ -1,44 +1,52 @@
 #Tarea  Gauss-Jordan
-An=[1 -1 3; 1 1 1 ; 2 2 -1 ];
+%{
+A=[1 -1 3; 1 1 1 ; 2 2 -1 ];
 b=[13;11;7];
-A=[An b];
 x1=0;
 x2=0;
 x3=0;
 X=[x1,x2,x3];
 n=3;
-disp(A);
-disp("\n");
-for i=1:n-1
-  j=i+1;
-  while (j<=n)
-    k=i;
-    f=A(j,i)/A(i,i);
-    while (k <= n+1)
-      A(j,k)= A(j,k)- A(i,k)*f;
-      k=k+1;
+%}
+function r=gaus_jord(A,b,X,n)
+  MA=[A b];
+  disp(MA);
+  disp("\n");
+  for i=1:n-1
+    j=i+1;
+    while (j<=n)
+      k=i;
+      f=MA(j,i)/MA(i,i);
+      while (k <= n+1)
+        MA(j,k)= MA(j,k)- MA(i,k)*f;
+        k=k+1;
+      endwhile
+      j=j+1;
     endwhile
-    j=j+1;
-  endwhile
-end
+  end
 
-for i=n:-1:2
-  j=i-1;
-  while (j>=1)
-    k=i;
-    f=A(j,i)/A(i,i);
-    while (k <= n+1)
-      A(j,k)= A(j,k)- A(i,k)*f;
-      k=k+1;
+  for i=n:-1:2
+    j=i-1;
+    while (j>=1)
+      k=i;
+      f=MA(j,i)/MA(i,i);
+      while (k <= n+1)
+        MA(j,k)= MA(j,k)- MA(i,k)*f;
+        k=k+1;
+      endwhile
+      j=j-1;
     endwhile
-    j=j-1;
-  endwhile
-end
+  end
 
-for i=1:n
-  A(i,n+1)= A(i,n+1)/A(i,i);
-  A(i,i)=1;
-end
+  for i=1:n
+    MA(i,n+1)= MA(i,n+1)/MA(i,i);
+    MA(i,i)=1;
+  end
+  disp(MA);
+  disp("\n");
+
+  X=inv(A)*b
+endfunction
 disp(A);
 disp("\n");
 
